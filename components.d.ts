@@ -20,5 +20,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ShyLoadMore: typeof import('./src/components/shy-load-more/shy-load-more.vue')['default']
+    Star: typeof import('./src/widgets/star/Star.vue')['default']
   }
 }

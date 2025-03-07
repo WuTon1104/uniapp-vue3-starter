@@ -23,7 +23,7 @@ const dates = ref([
     date: '4',
     homework: 3,
     work:
-      [{ error: 2, true: 15, type: '数学分层', title: '一元二次方程的解答', time: '12', state: false }, {
+      [{ error: 2, true: 15, type: '英语基础', title: 'SD', time: '12', state: false }, {
         error: 5,
         true: 15,
         type: '语文基础',
@@ -31,8 +31,8 @@ const dates = ref([
         time: '12',
         state: true,
       }, {
-        error: 5,
-        true: 15,
+        error: 7,
+        true: 13,
         type: '英语基础',
         title: 'ABC',
         time: '12',
@@ -58,14 +58,11 @@ const drawerVisibleDate = ref(false)
 const maskClick = ref(true)
 const showRadius = ref(true)
 const selectDate = ref('< 2025-03 >')
-// 选中的起始日期and结束日期
-/*
-const startDate = ref('01')
-const endDate = ref('07')
-*/
 
+const tit = ref('')
 // 触发评价
-function assess() {
+function assess(title) {
+  tit.value = title
   drawerVisible.value = true
 }
 
@@ -75,13 +72,6 @@ function onDrawerClosed() {
     title: '关闭',
     icon: 'none',
   })
-}
-
-const rating = ref(0)
-const stars = ref([1, 2, 3, 4, 5])
-
-function setRating(value) {
-  rating.value = value
 }
 // 按下选择日期确定键 处理获得的数据
 function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: string } {
@@ -116,7 +106,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
 <template>
   <view style="background-color: #f6f5fa; min-height: 100vh">
     <view class="top-bg p-3">
-      <view class="mt-60rpx text-xl font-bold">
+      <view class="mt-4 text-xl font-bold">
         作业列表
       </view>
       <view class="text-align-center" @click="drawerVisibleDate = true">
@@ -146,11 +136,11 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
         />
       </GuoduDrawer>
 
-      <view class="container">
-        <scroll-view :show-scrollbar="false" scroll-x="true" class="scroll-view">
+      <view class="p-40rpx">
+        <scroll-view :show-scrollbar="false" scroll-x="true" class="whitespace-nowrap">
           <view class="flex">
             <view
-              v-for="(item, index) in dates" :key="index" class="date-item"
+              v-for="(item, index) in dates" :key="index" class="mr-20rpx inline-block h-110rpx rounded-xl p-12rpx text-align-center"
               :class="{
                 selected: selectedIndex === index && item.homework,
                 noWork: selectedIndex === index && !item.homework,
@@ -174,17 +164,17 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
           </view>
         </scroll-view>
       </view>
-      <view v-if="dates[selectedIndex].homework" class="list w-full">
+      <view v-if="dates[selectedIndex].homework" class="mt-1 w-full flex flex-wrap items-center justify-between">
         <view>
           <view class="mt-60rpx text-xl font-bold">
-            <view class="flex flex-justify-between" style="width: 93vw">
+            <view class="flex flex-justify-between items-center" style="width: 93vw">
               <view class="flex">
                 <text style="font-size: 60rpx">
                   {{ dates[selectedIndex].homework }}
                 </text>
                 份作业
               </view>
-              <text class="all">
+              <text class="text-xs text-slate-400">
                 全部学科 >
               </text>
             </view>
@@ -192,9 +182,9 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
           <!--      单元格头 -->
         </view>
         <!--     默认显示四个 语数外历史 -->
-        <view class="subjects">
+        <view class="w-full flex flex-wrap justify-between">
           <view class="subjects-item">
-            <view class="subjectsName">
+            <view class="ml-2">
               icon--语文
             </view>
             <view class="num">
@@ -202,7 +192,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
             </view>
           </view>
           <view class="subjects-item">
-            <view class="subjectsName">
+            <view class="ml-2">
               icon--英语
             </view>
             <view class="num">
@@ -210,7 +200,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
             </view>
           </view>
           <view class="subjects-item">
-            <view class="subjectsName">
+            <view class="ml-2">
               icon--数学
             </view>
             <view class="num">
@@ -218,7 +208,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
             </view>
           </view>
           <view class="subjects-item">
-            <view class="subjectsName">
+            <view class="ml-2">
               icon--历史
             </view>
             <view class="num">
@@ -257,46 +247,13 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
         <template #header>
           <GuoduDrawerHeader title="作业评价" @close="drawerVisible = false" />
         </template>
-        <view class="work-title">
-          关于孔乙己的理解
+        <view class="ml-3 text-base text-slate-400">
+          {{ tit }}
         </view>
         <view>
-          <view class="star-rating">
-            <text>作业时长</text>
-            <view
-              v-for="(star, index) in stars"
-              :key="index"
-              class="star"
-              :class="{ active: index < rating }"
-              @click="setRating(index + 1)"
-            >
-              ★
-            </view>
-          </view>
-          <view class="star-rating">
-            <text>难易度</text>
-            <view
-              v-for="(star, index) in stars"
-              :key="index"
-              class="star"
-              :class="{ active: index < rating }"
-              @click="setRating(index + 1)"
-            >
-              ★
-            </view>
-          </view>
-          <view class="star-rating">
-            <text>作业量</text>
-            <view
-              v-for="(star, index) in stars"
-              :key="index"
-              class="star"
-              :class="{ active: index < rating }"
-              @click="setRating(index + 1)"
-            >
-              ★
-            </view>
-          </view>
+          <Star label="作业时长" :max-stars="5" />
+          <Star label="难易度" :max-stars="5" />
+          <Star label="作业量" :max-stars="5" />
         </view>
         <view style="display: flex;margin-top: 20px">
           <button type="default" plain style="width: 45%;" @click="drawerVisible = false">
@@ -312,56 +269,6 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
 </template>
 
 <style lang="scss" scoped>
-.work-title {
-  font-size: 32rpx;
-  color: #888888;
-  margin-left: 24rpx;
-}
-
-.btn-2 {
-  margin-top: 30rpx;
-  display: flex;
-  height: 60rpx;
-  text-align: center;
-  align-items: center
-
-}
-
-.info {
-  margin-top: 10rpx;
-}
-
-.classify {
-  display: flex;
-  padding: 10rpx;
-  font-size: 24rpx;
-  background-color: #fff2dd;
-  color: #ff950b;
-  border-radius: 30rpx;
-}
-
-.card-title {
-  display: flex;
-  justify-content: space-between;
-}
-
-.left {
-  display: flex;
-}
-
-.card {
-  padding: 32rpx;
-  border-radius: 32rpx;
-  margin-top: 40rpx;
-  width: 100%;
-  height: 320rpx;
-  background-color: #fff;
-}
-
-.subjectsName {
-  margin-left: 20rpx;
-}
-
 .num {
   margin-right: 40rpx;
   width: 44rpx;
@@ -370,14 +277,6 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
   background-color: white;
   border-radius: 50%;
 }
-
-.subjects {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: space-between;
-}
-
 .subjects-item {
   margin-top: 40rpx;
   border-radius: 20rpx;
@@ -401,24 +300,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
   background-color: #ecebff;
 }
 
-.container {
-  padding: 20px;
-}
-
-.scroll-view {
-  white-space: nowrap;
-}
-
-.date-item {
-  display: inline-block;
-  margin-right: 20px;
-  text-align: center;
-  padding: 6px;
-  border-radius: 8px;
-  height: 55px;
-}
-
-.date-item.selected {
+.selected {
   background-color: #2467cc;
   color: #fff;
 }
@@ -430,8 +312,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
 }
 
 .homework {
-  font-size: 14px;
-  display: block;
+  font-size: 20rpx;
   margin-top: 5px;
   width: 50px;
 }
@@ -451,38 +332,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
   border-radius: 50%;
 }
 
-.all {
-  font-size: 16px;
-  color: #999;
-}
-
 .mt-60rpx {
   margin-top: 0;
-}
-
-.list {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.star-rating {
-  display: flex;
-  font-size: 18px;
-  align-items: center;
-  margin-left: 20px;
-}
-
-.star {
-  margin-left: 5px;
-  font-size: 34px;
-  color: #ccc;
-  cursor: pointer;
-}
-
-.star.active {
-  color: #ffcc00;
 }
 </style>

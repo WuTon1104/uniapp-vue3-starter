@@ -1,6 +1,6 @@
 <script setup>
 // 定义 props
-const props = defineProps({
+defineProps({
   state: {
     type: Boolean,
     default: false,
@@ -35,8 +35,8 @@ const props = defineProps({
 const emit = defineEmits(['assess'])
 
 // 评价按钮点击事件
-function assess() {
-  emit('assess')
+function assess(title) {
+  emit('assess', title)
 }
 </script>
 
@@ -98,7 +98,7 @@ function assess() {
       <view class="btn-2">
         <button
           type="default" size="mini" plain style="border-radius: 40rpx;height: 70rpx;line-height: 70rpx"
-          @click="assess"
+          @click="assess(title)"
         >
           评价
         </button>
@@ -219,7 +219,7 @@ function assess() {
 }
 
 .container {
-  padding: 20px;
+  padding: 40rpx;
 }
 
 .scroll-view {
@@ -228,11 +228,11 @@ function assess() {
 
 .date-item {
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 40rpx;
   text-align: center;
-  padding: 6px;
-  border-radius: 8px;
-  height: 55px;
+  padding: 12rpx;
+  border-radius: 16rpx;
+  height: 110rpx;
 }
 
 .date-item.selected {
@@ -241,35 +241,35 @@ function assess() {
 }
 
 .date {
-  font-size: 18px;
+  font-size: 36rpx;
   font-weight: bold;
-  margin: 10px 10px;
+  margin: 20rpx 20rpx;
 }
 
 .homework {
-  font-size: 14px;
+  font-size: 28rpx;
   display: block;
-  margin-top: 5px;
-  width: 50px;
+  margin-top: 10rpx;
+  width: 100rpx;
 }
 
 .point {
-  font-size: 30px;
+  font-size: 60rpx;
   display: block;
-  margin-top: -20px;
+  margin-top: -40rpx;
   color: #2467cc;
 }
 
 .noWork {
   background-color: #2467cc;
   color: #fff;
-  height: 60px;
-  width: 60px;
+  height: 120rpx;
+  width: 120rpx;
   border-radius: 50%;
 }
 
 .all {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #999;
 }
 
@@ -278,7 +278,7 @@ function assess() {
 }
 
 .list {
-  margin-top: 10px;
+  margin-top: 20rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -287,14 +287,14 @@ function assess() {
 
 .star-rating {
   display: flex;
-  font-size: 18px;
+  font-size: 36rpx;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 40rpx;
 }
 
 .star {
-  margin-left: 5px;
-  font-size: 34px;
+  margin-left: 10rpx;
+  font-size: 68rpx;
   color: #ccc;
   cursor: pointer;
 }
