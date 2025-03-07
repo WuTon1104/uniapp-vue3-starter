@@ -1,0 +1,98 @@
+{
+  "name": "uniapp-vue3-starter",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "uniapp vue starter",
+  "author": "shy1118",
+  "license": "MIT",
+  "keywords": [
+    "uniapp",
+    "vue3",
+    "starter"
+  ],
+  "scripts": {
+    "dev:app": "uni -p app",
+    "dev:app-android": "uni -p app-android",
+    "dev:app-ios": "uni -p app-ios",
+    "dev:custom": "uni -p",
+    "dev:h5": "uni",
+    "dev:h5:ssr": "uni --ssr",
+    "dev:mp-weixin": "uni -p mp-weixin",
+    "build:app": "uni build -p app",
+    "build:app-android": "uni build -p app-android",
+    "build:app-ios": "uni build -p app-ios",
+    "build:custom": "uni build -p",
+    "build:h5": "uni build",
+    "build:h5:ssr": "uni build --ssr",
+    "build:mp-weixin": "uni build -p mp-weixin",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint .",
+    "format": "eslint --fix .",
+    "mock": "esno mock/express.ts",
+    "prepare": "husky install",
+    "up": "pnpm up & npx @dcloudio/uvm@latest"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "3.0.0-4030620241128001",
+    "@dcloudio/uni-app-harmony": "3.0.0-4030620241128001",
+    "@dcloudio/uni-app-plus": "3.0.0-4030620241128001",
+    "@dcloudio/uni-components": "3.0.0-4030620241128001",
+    "@dcloudio/uni-h5": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-alipay": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-baidu": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-jd": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-kuaishou": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-lark": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-qq": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-toutiao": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-weixin": "3.0.0-4030620241128001",
+    "@dcloudio/uni-mp-xhs": "3.0.0-4030620241128001",
+    "@dcloudio/uni-quickapp-webview": "3.0.0-4030620241128001",
+    "echarts": "^5.5.1",
+    "pinia": "2.1.7",
+    "vue": "3.4.21",
+    "vue-i18n": "^9.14.2"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.12.1",
+    "@antfu/ni": "^0.21.12",
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^17.8.1",
+    "@dcloudio/types": "^3.4.14",
+    "@dcloudio/uni-automator": "3.0.0-4030620241128001",
+    "@dcloudio/uni-cli-shared": "3.0.0-4030620241128001",
+    "@dcloudio/uni-stacktracey": "3.0.0-4030620241128001",
+    "@dcloudio/vite-plugin-uni": "3.0.0-4030620241128001",
+    "@iconify-json/carbon": "^1.2.5",
+    "@iconify/utils": "^2.2.1",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.2",
+    "@unocss/eslint-plugin": "^0.63.6",
+    "@unocss/preset-icons": "^0.63.6",
+    "@vue/runtime-core": "^3.5.13",
+    "body-parser": "^1.20.3",
+    "eslint": "^9.17.0",
+    "esno": "^4.8.0",
+    "express": "^4.21.2",
+    "husky": "^9.1.7",
+    "sass": "^1.83.0",
+    "typescript": "^5.7.2",
+    "unocss": "^0.63.6",
+    "unocss-preset-weapp": "^0.62.2",
+    "unplugin-auto-import": "^0.17.8",
+    "unplugin-vue-components": "^0.27.5",
+    "vite": "^5.2.8",
+    "vue-tsc": "^2.2.0"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "npx --no -- commitlint --edit ${1}"
+    }
+  }
+}

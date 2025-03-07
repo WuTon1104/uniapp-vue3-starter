@@ -1,0 +1,48 @@
+@use "./theme.scss" as *;
+
+input,
+textarea {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+}
+
+button::after,
+button::before {
+  display: none;
+}
+
+div,
+view,
+input,
+textarea,
+image {
+  box-sizing: border-box;
+}
+
+/* button */
+.btn {
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--base-color);
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary.button-hover {
+  background-color: var(--primary-color-hover);
+  color: var(--base-color);
+}
+
+.top-bg {
+  background-image: url("https://guodu-homework.oss-cn-beijing.aliyuncs.com/static/student/bg-top.png");
+  background-size: 750rpx 496rpx;
+  background-repeat: no-repeat;
+  min-height: 496rpx;
+
+}
