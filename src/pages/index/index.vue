@@ -1,81 +1,51 @@
 <script setup lang="ts">
-// 时间选择
-const props = withDefaults(defineProps<{
-  defaultTime?: number // 默认日期
-  mode?: 'single' | 'range' | 'week' | 'show' // 选择模式
-  value: number | [number, number] // 毫秒时间戳 一个时间戳表示选中的日期，或者一个时间戳数组表示选中的日期区间
-  startWeek?: 0 | 1 // 一周的开始是周几
-}>(), {
-  mode: 'show',
-  defaultTime: new Date().getTime(),
-  startWeek: 0,
-})
-/*
-
-function to(path: string) {
-  uni.navigateTo({
-    url: path,
-  })
-}
-
-const userStore = useUserStore()
-
-function handleLogout() {
-  userStore.logout().then(() => {
-    // 重定向到登录页面
-    uni.redirectTo({
-      url: '/pages/login/index',
-    })
-  })
-}
-*/
-
-const now = props.defaultTime ? new Date(props.defaultTime) : new Date()
-const year = ref(now.getFullYear())
-const month = ref(now.getMonth() + 1)
-// 获取YYYY-MM
-const date = computed(() => `${year.value}-${month.value.toString().padStart(2, '0')}`)
-
-function changeDate(v: string) {
-  const [y, m] = v.split('-')
-  year.value = Number(y)
-  month.value = Number(m)
-}
-
-function handleChangeLastMonth() {
-  if (month.value === 1) {
-    year.value -= 1
-    month.value = 12
-  }
-  else {
-    month.value -= 1
-  }
-}
-
-function handleChangeNextMonth() {
-  if (month.value === 12) {
-    year.value += 1
-    month.value = 1
-  }
-  else {
-    month.value += 1
-  }
-}
-
 const dates = ref([
-  { date: '1', homework: '4' },
-  { date: '2', homework: '' },
-  { date: '3', homework: '' },
-  { date: '4', homework: '5' },
-  { date: '5', homework: '' },
-  { date: '6', homework: '' },
-  { date: '7', homework: '' },
-  { date: '8', homework: '' },
-  { date: '9', homework: '4' },
-  { date: '10', homework: '' },
-  { date: '11', homework: '' },
-  { date: '12', homework: '' },
-  { date: '13', homework: '5' },
+  {
+    date: '1',
+    homework: 1,
+    work: [{ error: 5, true: 15, type: '语文基础', title: '关于孔乙己的理解', time: '12', state: true }],
+  },
+  {
+    date: '2',
+    homework: 2,
+    work:
+      [{ error: 2, true: 15, type: '数学分层', title: '一元二次方程的解答', time: '12', state: false }, {
+        error: 5,
+        true: 15,
+        type: '语文基础',
+        title: '关于孔乙己的理解2',
+        time: '12',
+        state: true,
+      }],
+  },
+  { date: '3', homework: 0 },
+  {
+    date: '4',
+    homework: 3,
+    work:
+      [{ error: 2, true: 15, type: '数学分层', title: '一元二次方程的解答', time: '12', state: false }, {
+        error: 5,
+        true: 15,
+        type: '语文基础',
+        title: '关于孔乙己的理解2',
+        time: '12',
+        state: true,
+      }, {
+        error: 5,
+        true: 15,
+        type: '英语基础',
+        title: 'ABC',
+        time: '12',
+        state: true,
+      }],
+  },
+  {
+    date: '5',
+    homework: 1,
+    work: [{ error: 5, true: 15, type: '历史基础', title: '王朝的更替', time: '12', state: true }],
+  },
+  { date: '6', homework: 0 },
+  { date: '7', homework: 0 },
 ])
 const selectedIndex = ref(0) // 用于记录当前选中的项
 
@@ -84,9 +54,15 @@ function selectItem(index) {
 }
 
 const drawerVisible = ref(false)
+const drawerVisibleDate = ref(false)
 const maskClick = ref(true)
-const mode = ref<'bottom' | 'top' | 'left' | 'right'>('bottom')
 const showRadius = ref(true)
+const selectDate = ref('< 2025-03 >')
+// 选中的起始日期and结束日期
+/*
+const startDate = ref('01')
+const endDate = ref('07')
+*/
 
 // 触发评价
 function assess() {
@@ -107,6 +83,34 @@ const stars = ref([1, 2, 3, 4, 5])
 function setRating(value) {
   rating.value = value
 }
+// 按下选择日期确定键 处理获得的数据
+function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: string } {
+  // 将时间戳转换为 Date 对象
+  const startDate = new Date(e[0])
+  const endDate = new Date(e[1])
+
+  // 提取年月日
+  const startYear = startDate.getFullYear()
+  const startMonth = startDate.getMonth() + 1 // 月份从 0 开始，需要加 1
+  const startDay = startDate.getDate()
+
+  const endYear = endDate.getFullYear()
+  const endMonth = endDate.getMonth() + 1 // 月份从 0 开始，需要加 1
+  const endDay = endDate.getDate()
+
+  // 格式化日期为 YYYY-MM-DD
+  const formatDate = (year: number, month: number, day: number): string => {
+    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+  }
+
+  // 返回日期范围
+  // return {
+  //   start_date: formatDate(startYear, startMonth, startDay),
+  //   end_date: formatDate(endYear, endMonth, endDay),
+  // }
+  console.log(formatDate(startYear, startMonth, startDay), formatDate(endYear, endMonth, endDay))
+  drawerVisibleDate.value = false
+}
 </script>
 
 <template>
@@ -115,17 +119,36 @@ function setRating(value) {
       <view class="mt-60rpx text-xl font-bold">
         作业列表
       </view>
-      <!-- 头部 -->
-      <view class="flex-center leading-80rpx">
-        <view class="i-carbon:chevron-left px-5" @tap="handleChangeLastMonth" />
-        <picker mode="date" fields="month" :value="date" @change="(e: any) => changeDate(e.detail.value)">
-          {{ date }}
-        </picker>
-        <view class="i-carbon:chevron-right px-5" @tap="handleChangeNextMonth" />
+      <view class="text-align-center" @click="drawerVisibleDate = true">
+        {{ selectDate }}
       </view>
+      <!-- 头部 -->
+      <GuoduDrawer
+        :visible="drawerVisibleDate"
+        :mask-click="maskClick"
+        mode="top"
+        size="60%"
+        :radius="showRadius"
+        @close="drawerVisibleDate = false"
+      >
+        <template #header>
+          <GuoduDrawerHeader
+            title="选择日期"
+            @close="drawerVisibleDate = false"
+          />
+        </template>
+        <GuoduCalendar
+          mode="week"
+          :value="0"
+          :start-week="0"
+          @submit="onSub"
+          @cancel="drawerVisibleDate = false"
+        />
+      </GuoduDrawer>
+
       <view class="container">
         <scroll-view :show-scrollbar="false" scroll-x="true" class="scroll-view">
-          <view style="display: flex;">
+          <view class="flex">
             <view
               v-for="(item, index) in dates" :key="index" class="date-item"
               :class="{
@@ -151,18 +174,22 @@ function setRating(value) {
           </view>
         </scroll-view>
       </view>
-      <view v-if="dates[selectedIndex].homework" class="list">
+      <view v-if="dates[selectedIndex].homework" class="list w-full">
         <view>
           <view class="mt-60rpx text-xl font-bold">
-            <text style="font-size: 30px">
-              {{ dates[selectedIndex].homework }}
-            </text>
-            份作业
+            <view class="flex flex-justify-between" style="width: 93vw">
+              <view class="flex">
+                <text style="font-size: 60rpx">
+                  {{ dates[selectedIndex].homework }}
+                </text>
+                份作业
+              </view>
+              <text class="all">
+                全部学科 >
+              </text>
+            </view>
           </view>
           <!--      单元格头 -->
-          <text class="all">
-            全部学科 >
-          </text>
         </view>
         <!--     默认显示四个 语数外历史 -->
         <view class="subjects">
@@ -199,130 +226,20 @@ function setRating(value) {
             </view>
           </view>
         </view>
-        <view class="card">
-          <!--        分类 题目 状态 -->
-          <view class="card-title">
-            <view class="left">
-              <view class="classify">
-                <text>语文基础</text>
-              </view>
-              <view style="margin-left: 20rpx">
-                关于孔乙己的理解
-              </view>
-            </view>
-            <view v-if="true" class="right">
-              icon 已批改
-            </view>
-            <view v-else class="right">
-              icon 未批改
-            </view>
-          </view>
-          <!--          剩余时间 -->
-          <text style="color:#949698; font-size: 12px">
-            icon-12天后作业结束
-          </text>
-          <!--          作业详情和操作按钮 -->
-          <view style="width: 100%;display: flex; margin-top: 20px;justify-content: space-between">
-            <view>
-              <view>
-                <text style="font-size: 18px;color: red">
-                  5
-                </text>
-                /20
-              </view>
-              <view class="info">
-                错题数/总数
-              </view>
-            </view>
-            <view v-if="true" style="margin-left: 30rpx">
-              <view style="color: #1ab270">
-                <text style="font-size: 18px">
-                  78
-                </text>
-                %
-              </view>
-              <view class="info">
-                正确率
-              </view>
-            </view>
-            <view class="btn-2">
-              <button
-                type="default" size="mini" plain style="border-radius: 20px;height: 35px;line-height: 35px"
-                @click="assess"
-              >
-                评价
-              </button>
-              <button
-                type="primary" size="mini"
-                style="border-radius: 20px;height: 35px;line-height: 35px;margin-left: 8px;"
-              >
-                学情报告
-              </button>
-            </view>
-          </view>
-        </view>
-        <view class="card">
-          <!--        分类 题目 状态 -->
-          <view class="card-title">
-            <view class="left">
-              <view class="classify">
-                <text>语文基础</text>
-              </view>
-              <view style="margin-left: 20rpx">
-                关于孔乙己的理解
-              </view>
-            </view>
-            <view v-if="false" class="right">
-              icon 已批改
-            </view>
-            <view v-else class="right">
-              icon 未批改
-            </view>
-          </view>
-          <!--          剩余时间 -->
-          <text style="color:#949698; font-size: 12px">
-            icon-12天后作业结束
-          </text>
-          <!--          作业详情和操作按钮 -->
-          <view style="width: 100%;display: flex; margin-top: 20px;justify-content: space-between">
-            <view>
-              <view>
-                <text style="font-size: 18px;">
-                  0
-                </text>
-                /20
-              </view>
-              <view class="info">
-                错题数/总数
-              </view>
-            </view>
-            <view v-if="false" style="margin-left: 30rpx">
-              <view style="color: #1ab270">
-                <text style="font-size: 18px">
-                  78
-                </text>
-                %
-              </view>
-              <view class="info">
-                正确率
-              </view>
-            </view>
-            <view class="btn-2">
-              <button
-                type="default" size="mini" plain style="border-radius: 20px;height: 35px;line-height: 35px"
-                @click="assess"
-              >
-                评价
-              </button>
-              <button
-                type="primary" size="mini"
-                style="border-radius: 20px;height: 35px;line-height: 35px;margin-left: 8px;"
-              >
-                学情报告
-              </button>
-            </view>
-          </view>
-        </view>
+        <view />
+        <HomeCard
+          v-for="(item, index) in dates[selectedIndex].work"
+          :key="index"
+          :state="item.state"
+          :homework="item.homework"
+          :error="item.error"
+          :total="item.true + item.error"
+          :title="item.title"
+          :type="item.type"
+          :time="item.time"
+          :accuracy="(item.true / (item.true + item.error)) * 100"
+          @assess="assess"
+        />
       </view>
       <!--      空 -->
       <view v-else>
@@ -332,7 +249,7 @@ function setRating(value) {
       <GuoduDrawer
         :visible="drawerVisible"
         :mask-click="maskClick"
-        :mode="mode"
+        mode="bottom"
         size="40%"
         :radius="showRadius"
         @close="onDrawerClosed"
@@ -355,8 +272,9 @@ function setRating(value) {
             >
               ★
             </view>
-          </view>  <view class="star-rating">
-            <text>难易度 </text>
+          </view>
+          <view class="star-rating">
+            <text>难易度</text>
             <view
               v-for="(star, index) in stars"
               :key="index"
@@ -366,8 +284,9 @@ function setRating(value) {
             >
               ★
             </view>
-          </view>  <view class="star-rating">
-            <text>作业量 </text>
+          </view>
+          <view class="star-rating">
+            <text>作业量</text>
             <view
               v-for="(star, index) in stars"
               :key="index"
@@ -389,23 +308,6 @@ function setRating(value) {
         </view>
       </GuoduDrawer>
     </view>
-    <!--
-
-      <view class="p-3">
-        <button @tap="to('/pages/login/index')">
-          To Login
-        </button>
-        <button @tap="handleLogout">
-          Logout
-        </button>
-        <button @tap="to('/pages/icon/index')">
-          To Icon
-        </button>
-        <button @tap="to('/pages/fetchPage/index')">
-          To FetchPage
-        </button>
-      </view>
-    -->
   </view>
 </template>
 
