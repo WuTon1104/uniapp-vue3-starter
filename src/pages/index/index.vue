@@ -70,6 +70,7 @@ function handleChangeLastMonth() {
   else {
     month.value -= 1
   }
+  console.log(`向后端请求${year.value} ${month.value}月的数据`)
 }
 function handleChangeNextMonth() {
   if (month.value === 12) {
@@ -79,6 +80,7 @@ function handleChangeNextMonth() {
   else {
     month.value += 1
   }
+  console.log(`向后端请求${year.value} ${month.value}月的数据`)
 }
 
 const tit = ref('')
@@ -133,10 +135,15 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
         作业列表
       </view>
       <view class="text-align-center">
-        <text @click="handleChangeLastMonth"><&nbsp;</text>
-        <text @click="drawerVisibleDate = true">{{ year }}/{{month}}</text>
-
-        <text @click="handleChangeNextMonth">&nbsp;></text>
+        <text @click="handleChangeLastMonth">
+          <&nbsp;
+        </text>
+        <text @click="drawerVisibleDate = true">
+          {{ year }}/{{ month }}
+        </text>
+        <text @click="handleChangeNextMonth">
+          &nbsp;>
+        </text>
       </view>
       <!-- 头部 -->
       <GuoduDrawer
@@ -213,7 +220,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
           <view class="subjects-item">
             <view class="ml-2 flex flex-items-center">
               <view style="margin-right: 10rpx; display:flex; justify-content: space-around;align-items: center; text-align: center; width: 60rpx; height: 60rpx;background-color: #ffb151;border-radius: 50% 50%;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="#ffffff" d="M19 10h7v2h-7zm0 5h7v2h-7zm0 5h7v2h-7zM6 10h7v2H6zm0 5h7v2H6zm0 5h7v2H6z"/><path fill="#ffffff" d="M28 5H4a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2M4 7h11v18H4Zm13 18V7h11v18Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="#ffffff" d="M19 10h7v2h-7zm0 5h7v2h-7zm0 5h7v2h-7zM6 10h7v2H6zm0 5h7v2H6zm0 5h7v2H6z" /><path fill="#ffffff" d="M28 5H4a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2M4 7h11v18H4Zm13 18V7h11v18Z" /></svg>
               </view>
               语文
             </view>
@@ -224,7 +231,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
           <view class="subjects-item">
             <view class="ml-2 flex flex-items-center">
               <view style="margin-right: 10rpx; display:flex; justify-content: space-around;align-items: center; text-align: center; width: 60rpx; height: 60rpx;background-color: #1cbc7b;border-radius: 50% 50%;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="#ffffff" d="M4 28h4v2H4a2 2 0 0 1-2-2v-4h2zm7-15v8H6a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3v-2H5v-2h4c1.103 0 2 .897 2 2m-2 4H6v2h3zM4 4h4V2H4a2 2 0 0 0-2 2v4h2zm24-2h-4v2h4v4h2V4a2 2 0 0 0-2-2m0 26h-4v2h4a2 2 0 0 0 2-2v-4h-2zm0-7v-2h-4v-6h4v-2h-4c-1.102 0-2 .897-2 2v6c0 1.103.898 2 2 2zm-8-8v6c0 1.103-.897 2-2 2h-5V8h2v3h3c1.103 0 2 .897 2 2m-2 0h-3v6h3z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="#ffffff" d="M4 28h4v2H4a2 2 0 0 1-2-2v-4h2zm7-15v8H6a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3v-2H5v-2h4c1.103 0 2 .897 2 2m-2 4H6v2h3zM4 4h4V2H4a2 2 0 0 0-2 2v4h2zm24-2h-4v2h4v4h2V4a2 2 0 0 0-2-2m0 26h-4v2h4a2 2 0 0 0 2-2v-4h-2zm0-7v-2h-4v-6h4v-2h-4c-1.102 0-2 .897-2 2v6c0 1.103.898 2 2 2zm-8-8v6c0 1.103-.897 2-2 2h-5V8h2v3h3c1.103 0 2 .897 2 2m-2 0h-3v6h3z" /></svg>
               </view>
               英语
             </view>
@@ -233,10 +240,10 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
             </view>
           </view>
           <view class="subjects-item">
-
             <view class="ml-2 flex flex-items-center">
               <view style="margin-right: 10rpx; display:flex; justify-content: space-around;align-items: center; text-align: center; width: 60rpx; height: 60rpx;background-color: #3f98fa;border-radius: 50% 50%;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="#ffffff" d="M11 19v2H5v-2h2v-5H5v-2h2v-1h2v8zm8 0h-4v-2h2c1.103 0 2-.897 2-2v-2c0-1.103-.897-2-2-2h-4v2h4v2h-2c-1.103 0-2 .897-2 2v4h6zm6-8h-4v2h4v2h-3v2h3v2h-4v2h4c1.103 0 2-.897 2-2v-6c0-1.103-.897-2-2-2M2 4v4h2V4h4V2H4a2 2 0 0 0-2 2m26-2h-4v2h4v4h2V4a2 2 0 0 0-2-2M4 28v-4H2v4a2 2 0 0 0 2 2h4v-2zm24-4v4h-4v2h4a2 2 0 0 0 2-2v-4z"/></svg>              </view>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="#ffffff" d="M11 19v2H5v-2h2v-5H5v-2h2v-1h2v8zm8 0h-4v-2h2c1.103 0 2-.897 2-2v-2c0-1.103-.897-2-2-2h-4v2h4v2h-2c-1.103 0-2 .897-2 2v4h6zm6-8h-4v2h4v2h-3v2h3v2h-4v2h4c1.103 0 2-.897 2-2v-6c0-1.103-.897-2-2-2M2 4v4h2V4h4V2H4a2 2 0 0 0-2 2m26-2h-4v2h4v4h2V4a2 2 0 0 0-2-2M4 28v-4H2v4a2 2 0 0 0 2 2h4v-2zm24-4v4h-4v2h4a2 2 0 0 0 2-2v-4z" /></svg>
+              </view>
               数学
             </view>
             <view class="num">
@@ -244,10 +251,10 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
             </view>
           </view>
           <view class="subjects-item">
-
             <view class="ml-2 flex flex-items-center">
               <view style="margin-right: 10rpx; display:flex; justify-content: space-around;align-items: center; text-align: center; width: 60rpx; height: 60rpx;background-color: #8d85fe;border-radius: 50% 50%;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="#ffffff" d="M27.527 2.709A2 2 0 0 0 26 2h-2.69a1.5 1.5 0 0 0-1.343.83L21.382 4H20v-.5A1.5 1.5 0 0 0 18.5 2h-5A1.5 1.5 0 0 0 12 3.5V4h-1.382l-.585-1.17A1.5 1.5 0 0 0 8.69 2H6a2 2 0 0 0-1.972 2.333L4.732 8.5A3 3 0 0 0 7.69 11H8v12a3.003 3.003 0 0 0-3 3v4h22v-4a3.003 3.003 0 0 0-3-3V11h.31a3 3 0 0 0 2.958-2.5l.704-4.167a2 2 0 0 0-.445-1.624M25 26v2H7v-2a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1m-3-3H10V11h12Zm3.296-14.833A1 1 0 0 1 24.31 9H7.69a1 1 0 0 1-.986-.833L6 4h2.382l1 2H14V4h4v2h4.617l1.001-2H26Z"/></svg>              </view>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="#ffffff" d="M27.527 2.709A2 2 0 0 0 26 2h-2.69a1.5 1.5 0 0 0-1.343.83L21.382 4H20v-.5A1.5 1.5 0 0 0 18.5 2h-5A1.5 1.5 0 0 0 12 3.5V4h-1.382l-.585-1.17A1.5 1.5 0 0 0 8.69 2H6a2 2 0 0 0-1.972 2.333L4.732 8.5A3 3 0 0 0 7.69 11H8v12a3.003 3.003 0 0 0-3 3v4h22v-4a3.003 3.003 0 0 0-3-3V11h.31a3 3 0 0 0 2.958-2.5l.704-4.167a2 2 0 0 0-.445-1.624M25 26v2H7v-2a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1m-3-3H10V11h12Zm3.296-14.833A1 1 0 0 1 24.31 9H7.69a1 1 0 0 1-.986-.833L6 4h2.382l1 2H14V4h4v2h4.617l1.001-2H26Z" /></svg>
+              </view>
               历史
             </view>
             <view class="num">
