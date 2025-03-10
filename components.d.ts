@@ -16,10 +16,10 @@ declare module 'vue' {
     GuoduLoading: typeof import('./src/widgets/guodu-loading/guodu-loading.vue')['default']
     GuoduModal: typeof import('./src/widgets/guodu-modal/guodu-modal.vue')['default']
     GuoduNavBar: typeof import('./src/widgets/guodu-nav-bar/guodu-nav-bar.vue')['default']
-    HomeCard: typeof import('./src/widgets/home-card/HomeCard.vue')['default']
+    HomeCard: typeof import('./src/components/home-card/HomeCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ShyLoadMore: typeof import('./src/components/shy-load-more/shy-load-more.vue')['default']
-    Star: typeof import('./src/widgets/star/Star.vue')['default']
+    Star: typeof import('./src/components/star/Star.vue')['default']
   }
 }

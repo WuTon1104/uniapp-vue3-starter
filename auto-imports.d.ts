@@ -107,6 +107,7 @@ declare global {
   const useTheme: typeof import('./src/composables/useTheme')['useTheme']
   const useTimeAgo: typeof import('./src/composables/useTimeAgo')['useTimeAgo']
   const useUserStore: typeof import('./src/store/user')['useUserStore']
+  const userTimeAgo: typeof import('./src/composables/useTimeAgo')['userTimeAgo']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
   const watchPostEffect: typeof import('vue')['watchPostEffect']
