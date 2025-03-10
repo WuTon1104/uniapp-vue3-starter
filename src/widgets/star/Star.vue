@@ -1,10 +1,8 @@
 <script setup>
-import { computed, ref } from 'vue'
-
 const props = defineProps({
   label: {
     type: String,
-    default: '',
+    default: '作业量',
   },
   maxStars: {
     type: Number,
@@ -20,7 +18,7 @@ const isYellow = computed(() => {
   return (rating.value / props.maxStars) > 0.6
 })
 
-// 评分
+// 设置评分
 function setRating(value) {
   rating.value = value
 }
@@ -41,26 +39,54 @@ const ratingText = computed(() => {
 </script>
 
 <template>
-  <view class="flex flex-items-center mt-2">
-    <text>&nbsp;&nbsp;&nbsp;{{ label }}</text>
-    <view
-      v-for="index in stars"
-      :key="index"
-      class="star ml-2 text-xl"
-      :class="{ active: index < rating, yellow: isYellow, red: !isYellow }"
-      @click="setRating(index + 1)"
-    >
-      ★
+  <view class="star-rating-container">
+    <text class="label font-normal">
+      {{ label }}
+    </text>
+    <view class="star-rating">
+      <view
+        v-for="(star, index) in stars"
+        :key="index"
+        class="star"
+        :class="{ active: index < rating, yellow: isYellow, red: !isYellow }"
+        @click="setRating(index + 1)"
+      >
+        ★
+      </view>
     </view>
-    <text class="ml-3 text-slate-400">
+    <text class="rating-text">
       {{ ratingText }}
     </text>
   </view>
 </template>
 
 <style scoped>
+.star-rating-container {
+  margin-top: 32rpx ;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.label {
+  text-align-last: justify;
+  width: 160rpx;
+  text-align: right;
+  margin: 0 24rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+}
+
 .star {
+  cursor: pointer;
+  font-size: 48rpx;
   color: #ccc; /* 默认灰色 */
+  margin-right: 10rpx;
 }
 
 .star.active.yellow {
@@ -69,5 +95,11 @@ const ratingText = computed(() => {
 
 .star.active.red {
   color: #ff0000; /* 不超过60%为红色 */
+}
+
+.rating-text {
+  margin-left: 20rpx;
+  font-size: 32rpx;
+  color: #333;
 }
 </style>

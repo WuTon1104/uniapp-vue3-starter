@@ -56,11 +56,11 @@ function assess(title) {
         >
           <text>{{ type }}</text>
         </view>
-        <view style="margin-left: 20rpx">
+        <view class="font-medium" style="margin-left: 20rpx">
           {{ title }}
         </view>
       </view>
-      <view v-if="state" class="right">
+      <view v-if="state" class="right text-sm">
         icon 已批改
       </view>
       <view v-else class="right">
@@ -68,11 +68,11 @@ function assess(title) {
       </view>
     </view>
     <!-- 剩余时间 -->
-    <text style="color:#949698; font-size: 24rpx">
+    <text class="text-xs" style="color:#949698;">
       icon-{{ time }}天后作业结束
     </text>
     <!-- 作业详情和操作按钮 -->
-    <view style="width: 100%;display: flex; margin-top: 20px;justify-content: space-between">
+    <view style="width: 100%;display: flex; margin-top: 60rpx;justify-content: space-between">
       <view>
         <view>
           <text style="font-size: 36rpx;color: red">
@@ -80,31 +80,32 @@ function assess(title) {
           </text>
           /{{ total }}
         </view>
-        <view class="info">
+        <view class="info text-xs">
           错题数/总数
         </view>
       </view>
-      <view v-if="state" style="margin-left: 30rpx">
+      <view v-if="state" style="margin-left: -1rem">
         <view style="color: #1ab270">
           <text style="font-size: 36rpx">
             {{ accuracy }}
           </text>
           %
         </view>
-        <view class="info">
+        <view class="info text-xs">
           正确率
         </view>
       </view>
       <view class="btn-2">
         <button
-          type="default" size="mini" plain style="border-radius: 40rpx;height: 70rpx;line-height: 70rpx"
+          class="bt"
+          type="default" size="mini" plain
           @click="assess(title)"
         >
           评价
         </button>
         <button
+          class="bt"
           type="primary" size="mini"
-          style="border-radius: 40rpx;height: 70rpx;line-height: 70rpx;margin-left: 16rpx;"
         >
           学情报告
         </button>
@@ -301,5 +302,11 @@ function assess(title) {
 
 .star.active {
   color: #ffcc00;
+}
+.bt{
+    border-radius: 40rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+    margin-left: 16rpx;
 }
 </style>

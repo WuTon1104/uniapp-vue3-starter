@@ -98,6 +98,7 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
   //   start_date: formatDate(startYear, startMonth, startDay),
   //   end_date: formatDate(endYear, endMonth, endDay),
   // }
+
   console.log(formatDate(startYear, startMonth, startDay), formatDate(endYear, endMonth, endDay))
   drawerVisibleDate.value = false
 }
@@ -136,11 +137,11 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
         />
       </GuoduDrawer>
 
-      <view class="p-40rpx">
+      <view style="margin-top: 28rpx">
         <scroll-view :show-scrollbar="false" scroll-x="true" class="whitespace-nowrap">
           <view class="flex">
             <view
-              v-for="(item, index) in dates" :key="index" class="mr-20rpx inline-block h-110rpx rounded-xl p-12rpx text-align-center"
+              v-for="(item, index) in dates" :key="index" class="inline-block h-110rpx rounded-xl p-10rpx text-align-center"
               :class="{
                 selected: selectedIndex === index && item.homework,
                 noWork: selectedIndex === index && !item.homework,
@@ -164,17 +165,17 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
           </view>
         </scroll-view>
       </view>
-      <view v-if="dates[selectedIndex].homework" class="mt-1 w-full flex flex-wrap items-center justify-between">
+      <view v-if="dates[selectedIndex].homework" class="mt-5 w-full flex flex-wrap items-center justify-between">
         <view>
-          <view class="mt-60rpx text-xl font-bold">
-            <view class="flex flex-justify-between items-center" style="width: 93vw">
-              <view class="flex">
-                <text style="font-size: 60rpx">
+          <view class="mt-60rpx text-xl font-semibold">
+            <view class="flex items-center flex-justify-between" style="width: 93vw;">
+              <view class="flex items-end">
+                <view style="font-size: 60rpx;position: relative;top: -2rpx">
                   {{ dates[selectedIndex].homework }}
-                </text>
+                </view>
                 份作业
               </view>
-              <text class="text-xs text-slate-400">
+              <text class="text-xs text-slate-400 font-normal">
                 全部学科 >
               </text>
             </view>
@@ -300,11 +301,6 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
   background-color: #ecebff;
 }
 
-.selected {
-  background-color: #2467cc;
-  color: #fff;
-}
-
 .date {
   font-size: 18px;
   font-weight: bold;
@@ -321,14 +317,20 @@ function onSub(e: { 0: number, 1: number }): { start_date: string, end_date: str
   font-size: 30px;
   display: block;
   margin-top: -20px;
-  color: #2467cc;
+  color: #178fff;
+}
+
+.selected {
+  background-color: #178fff;
+  color: #fff;
+  font-size: 14px;
 }
 
 .noWork {
-  background-color: #2467cc;
+  background-color: #178fff;
   color: #fff;
-  height: 60px;
-  width: 60px;
+  height: 80rpx;
+  width: 80rpx;
   border-radius: 50%;
 }
 
