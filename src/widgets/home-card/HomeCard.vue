@@ -56,7 +56,7 @@ function assess(title) {
         >
           <text>{{ type }}</text>
         </view>
-          <view style="margin-left: 20rpx">
+        <view style="margin-left: 20rpx">
           {{ title }}
         </view>
       </view>
