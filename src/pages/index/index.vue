@@ -3,18 +3,18 @@ const dates = ref([
   {
     date: '1',
     homework: 1,
-    work: [{ error: 5, true: 15, type: '语文基础', title: '关于孔乙己的理解', time: '6', state: true }],
+    work: [{ error: 5, true: 15, type: '语文基础', title: '关于孔乙己的理解', time: '9', state: true }],
   },
   {
     date: '2',
     homework: 2,
     work:
-      [{ error: 2, true: 15, type: '数学分层', title: '一元二次方程的解答', time: '10', state: false }, {
+      [{ error: 2, true: 15, type: '数学分层', title: '一元二次方程的解答', time: '7', state: false }, {
         error: 5,
         true: 15,
         type: '语文基础',
         title: '关于孔乙己的理解2',
-        time: '18',
+        time: '11',
         state: true,
       }],
   },
